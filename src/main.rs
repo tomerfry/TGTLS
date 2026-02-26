@@ -4,7 +4,6 @@ use std::net::IpAddr;
 use dns_lookup::lookup_host;
 
 
-
 fn get_ip(host: &str) -> Result<String, &str> {
     let mut s: String = String::new();
     for i in lookup_host(host).unwrap() {
@@ -16,13 +15,14 @@ fn get_ip(host: &str) -> Result<String, &str> {
     Ok(s)
 }
 
+
 fn main() -> std::io::Result<()> {
     println!("Resolving host {}", "google.com");
     let res= get_ip("google.com");  
 
     let host: String = match res {
         Ok(host)=> host,
-        Err(_) => panic!("Problem only IPv6 Address")
+        Err(_) => panic!("Problem only IPv4 Address")
     };
 
     println!("Connecting to address {}:{}", host, 443);
